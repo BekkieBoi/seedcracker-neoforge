@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[dependencies.seedcracker]]
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[21.1,)"
+    ordering = "NONE"
+    side = "CLIENT"
+
+[[dependencies.seedcracker]]
+    modId = "minecraft"
+    type = "required"
+    versionRange = "[1.21.1,1.22)"
+    ordering = "NONE"
+    side = "CLIENT"
+
+[[mods]]
+    modId = "seedcracker"
+    version = "1.0.0"
+    displayName = "SeedCracker"
+    description = '''
+        Cracks the world seed from in-game observations.
+        Collects dungeon, biome, and decorator data to reconstruct the world seed.
+        Includes a structure finder for locating structures after cracking.
+        No extra dependencies required.
+    '''
+    logoFile = "seedcracker.png"
+
+[[mixins]]
+    config = "seedcracker.mixins.json"
