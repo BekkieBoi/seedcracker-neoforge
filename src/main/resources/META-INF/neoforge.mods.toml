@@ -16,6 +16,13 @@ license = "MIT"
     ordering = "NONE"
     side = "CLIENT"
 
+[[dependencies.seedcracker]]
+    modId = "cloth_config"
+    type = "required"
+    versionRange = "[15,)"
+    ordering = "NONE"
+    side = "CLIENT"
+
 [[mods]]
     modId = "seedcracker"
     version = "1.0.0"
@@ -24,9 +31,7 @@ license = "MIT"
         Cracks the world seed from in-game observations.
         Collects dungeon, biome, and decorator data to reconstruct the world seed.
         Includes a structure finder for locating structures after cracking.
-        No extra dependencies required.
     '''
-    logoFile = "seedcracker.png"
 
 [[mixins]]
     config = "seedcracker.mixins.json"

@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# NeoForge / ForgeGradle generated files
+run/
+runs/
+src/main/resources/META-INF/accesstransformer.cfg.bak
+
+# OS files
+.DS_Store
+Thumbs.db

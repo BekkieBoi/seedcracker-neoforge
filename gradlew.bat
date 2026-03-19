@@ -1,91 +1,91 @@
-package com.seedcracker.config;
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
 
-import com.seedcracker.core.SeedCracker;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.ModConfigSpec;
+@if "%DEBUG%"=="" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
 
-public class SeedCrackerConfig {
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    public static final ModConfigSpec SPEC;
+set DIRNAME=%~dp0
+if "%DIRNAME%"=="" set DIRNAME=.
+@rem This is normally unused
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
 
-    public static final ModConfigSpec.BooleanValue SHOW_HUD;
-    public static final ModConfigSpec.BooleanValue HUD_ON_RIGHT;
-    public static final ModConfigSpec.BooleanValue AUTO_START_CRACK;
-    public static final ModConfigSpec.BooleanValue SHOW_STRUCTURE_HIGHLIGHTS;
-    public static final ModConfigSpec.IntValue MAX_STRUCTURE_RESULTS;
-    public static final ModConfigSpec.BooleanValue COLLECT_DUNGEONS;
-    public static final ModConfigSpec.BooleanValue COLLECT_BIOMES;
-    public static final ModConfigSpec.BooleanValue COLLECT_DECORATORS;
-    public static final ModConfigSpec.BooleanValue VERBOSE_LOGGING;
+@rem Resolve any "." and ".." in APP_HOME to make it shorter.
+for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 
-    static {
-        BUILDER.comment("SeedCracker client configuration");
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
-        BUILDER.push("display");
-        SHOW_HUD = BUILDER
-            .comment("Show the status overlay in the corner of your screen.")
-            .translation("seedcracker.config.show_hud")
-            .define("show_hud", true);
-        HUD_ON_RIGHT = BUILDER
-            .comment("Move the HUD to the top-right corner instead of top-left.")
-            .translation("seedcracker.config.hud_on_right")
-            .define("hud_on_right", false);
-        SHOW_STRUCTURE_HIGHLIGHTS = BUILDER
-            .comment("Draw coloured boxes at found structure positions in the world.")
-            .translation("seedcracker.config.show_structure_highlights")
-            .define("show_structure_highlights", true);
-        BUILDER.pop();
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
 
-        BUILDER.push("cracking");
-        AUTO_START_CRACK = BUILDER
-            .comment("Automatically begin cracking when enough data is collected.")
-            .translation("seedcracker.config.auto_start_crack")
-            .define("auto_start_crack", true);
-        COLLECT_DUNGEONS = BUILDER
-            .comment("Scan dungeon floors when a spawner block is loaded nearby.")
-            .translation("seedcracker.config.collect_dungeons")
-            .define("collect_dungeons", true);
-        COLLECT_BIOMES = BUILDER
-            .comment("Sample biome data from incoming chunk packets.")
-            .translation("seedcracker.config.collect_biomes")
-            .define("collect_biomes", true);
-        COLLECT_DECORATORS = BUILDER
-            .comment("Scan nearby blocks for decorator positions (emerald ore, fungi, etc.).")
-            .translation("seedcracker.config.collect_decorators")
-            .define("collect_decorators", true);
-        BUILDER.pop();
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if %ERRORLEVEL% equ 0 goto execute
 
-        BUILDER.push("structures");
-        MAX_STRUCTURE_RESULTS = BUILDER
-            .comment("How many of each structure type to show after /sf find.")
-            .translation("seedcracker.config.max_structure_results")
-            .defineInRange("max_structure_results", 5, 1, 20);
-        BUILDER.pop();
+echo. 1>&2
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH. 1>&2
+echo. 1>&2
+echo Please set the JAVA_HOME variable in your environment to match the 1>&2
+echo location of your Java installation. 1>&2
 
-        BUILDER.push("debug");
-        VERBOSE_LOGGING = BUILDER
-            .comment("Print detailed cracking progress to the game log.")
-            .translation("seedcracker.config.verbose_logging")
-            .define("verbose_logging", false);
-        BUILDER.pop();
+goto fail
 
-        SPEC = BUILDER.build();
-    }
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
 
-    public static boolean showHud()                { return SHOW_HUD.get(); }
-    public static boolean hudOnRight()             { return HUD_ON_RIGHT.get(); }
-    public static boolean autoStartCrack()         { return AUTO_START_CRACK.get(); }
-    public static boolean showStructureHighlights(){ return SHOW_STRUCTURE_HIGHLIGHTS.get(); }
-    public static int maxStructureResults()        { return MAX_STRUCTURE_RESULTS.get(); }
-    public static boolean collectDungeons()        { return COLLECT_DUNGEONS.get(); }
-    public static boolean collectBiomes()          { return COLLECT_BIOMES.get(); }
-    public static boolean collectDecorators()      { return COLLECT_DECORATORS.get(); }
-    public static boolean verboseLogging()         { return VERBOSE_LOGGING.get(); }
+if exist "%JAVA_EXE%" goto execute
 
-    public static void register(ModContainer container) {
-        container.registerConfig(ModConfig.Type.CLIENT, SPEC);
-        SeedCracker.LOGGER.info("[SeedCracker] Config registered (config/seedcracker-client.toml).");
-    }
-}
+echo. 1>&2
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME% 1>&2
+echo. 1>&2
+echo Please set the JAVA_HOME variable in your environment to match the 1>&2
+echo location of your Java installation. 1>&2
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Djava.security.manager=allow" "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if %ERRORLEVEL% equ 0 goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /C_ return code!
+set EXIT_CODE=%ERRORLEVEL%
+if %EXIT_CODE% equ 0 set EXIT_CODE=1
+if not ""=="%GRADLE_EXIT_CONSOLE%" exit %EXIT_CODE%
+exit /b %EXIT_CODE%
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega

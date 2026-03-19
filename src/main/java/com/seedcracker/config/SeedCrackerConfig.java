@@ -1,91 +1,86 @@
 package com.seedcracker.config;
 
 import com.seedcracker.core.SeedCracker;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.client.gui.screens.Screen;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class SeedCrackerConfig {
+@Config(name = SeedCracker.MOD_ID)
+public class SeedCrackerConfig implements ConfigData {
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    public static final ModConfigSpec SPEC;
+    @ConfigEntry.Category("display")
+    @ConfigEntry.Gui.Tooltip
+    public boolean showHud = true;
 
-    public static final ModConfigSpec.BooleanValue SHOW_HUD;
-    public static final ModConfigSpec.BooleanValue HUD_ON_RIGHT;
-    public static final ModConfigSpec.BooleanValue AUTO_START_CRACK;
-    public static final ModConfigSpec.BooleanValue SHOW_STRUCTURE_HIGHLIGHTS;
-    public static final ModConfigSpec.IntValue MAX_STRUCTURE_RESULTS;
-    public static final ModConfigSpec.BooleanValue COLLECT_DUNGEONS;
-    public static final ModConfigSpec.BooleanValue COLLECT_BIOMES;
-    public static final ModConfigSpec.BooleanValue COLLECT_DECORATORS;
-    public static final ModConfigSpec.BooleanValue VERBOSE_LOGGING;
+    @ConfigEntry.Category("display")
+    @ConfigEntry.Gui.Tooltip
+    public boolean hudOnRight = false;
 
-    static {
-        BUILDER.comment("SeedCracker client configuration");
+    @ConfigEntry.Category("display")
+    @ConfigEntry.Gui.Tooltip
+    public boolean showStructureHighlights = true;
 
-        BUILDER.push("display");
-        SHOW_HUD = BUILDER
-            .comment("Show the status overlay in the corner of your screen.")
-            .translation("seedcracker.config.show_hud")
-            .define("show_hud", true);
-        HUD_ON_RIGHT = BUILDER
-            .comment("Move the HUD to the top-right corner instead of top-left.")
-            .translation("seedcracker.config.hud_on_right")
-            .define("hud_on_right", false);
-        SHOW_STRUCTURE_HIGHLIGHTS = BUILDER
-            .comment("Draw coloured boxes at found structure positions in the world.")
-            .translation("seedcracker.config.show_structure_highlights")
-            .define("show_structure_highlights", true);
-        BUILDER.pop();
+    @ConfigEntry.Category("cracking")
+    @ConfigEntry.Gui.Tooltip
+    public boolean autoStartCrack = true;
 
-        BUILDER.push("cracking");
-        AUTO_START_CRACK = BUILDER
-            .comment("Automatically begin cracking when enough data is collected.")
-            .translation("seedcracker.config.auto_start_crack")
-            .define("auto_start_crack", true);
-        COLLECT_DUNGEONS = BUILDER
-            .comment("Scan dungeon floors when a spawner block is loaded nearby.")
-            .translation("seedcracker.config.collect_dungeons")
-            .define("collect_dungeons", true);
-        COLLECT_BIOMES = BUILDER
-            .comment("Sample biome data from incoming chunk packets.")
-            .translation("seedcracker.config.collect_biomes")
-            .define("collect_biomes", true);
-        COLLECT_DECORATORS = BUILDER
-            .comment("Scan nearby blocks for decorator positions (emerald ore, fungi, etc.).")
-            .translation("seedcracker.config.collect_decorators")
-            .define("collect_decorators", true);
-        BUILDER.pop();
+    @ConfigEntry.Category("cracking")
+    @ConfigEntry.Gui.Tooltip
+    public boolean collectDungeons = true;
 
-        BUILDER.push("structures");
-        MAX_STRUCTURE_RESULTS = BUILDER
-            .comment("How many of each structure type to show after /sf find.")
-            .translation("seedcracker.config.max_structure_results")
-            .defineInRange("max_structure_results", 5, 1, 20);
-        BUILDER.pop();
+    @ConfigEntry.Category("cracking")
+    @ConfigEntry.Gui.Tooltip
+    public boolean collectBiomes = true;
 
-        BUILDER.push("debug");
-        VERBOSE_LOGGING = BUILDER
-            .comment("Print detailed cracking progress to the game log.")
-            .translation("seedcracker.config.verbose_logging")
-            .define("verbose_logging", false);
-        BUILDER.pop();
+    @ConfigEntry.Category("cracking")
+    @ConfigEntry.Gui.Tooltip
+    public boolean collectDecorators = true;
 
-        SPEC = BUILDER.build();
+    @ConfigEntry.Category("structures")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 20)
+    public int maxStructureResults = 5;
+
+    @ConfigEntry.Category("debug")
+    @ConfigEntry.Gui.Tooltip
+    public boolean verboseLogging = false;
+
+    // -------------------------------------------------------------------------
+    // Static accessors
+    // -------------------------------------------------------------------------
+
+    private static SeedCrackerConfig instance;
+
+    private static SeedCrackerConfig get() {
+        if (instance == null) instance = new SeedCrackerConfig();
+        return instance;
     }
 
-    public static boolean showHud()                { return SHOW_HUD.get(); }
-    public static boolean hudOnRight()             { return HUD_ON_RIGHT.get(); }
-    public static boolean autoStartCrack()         { return AUTO_START_CRACK.get(); }
-    public static boolean showStructureHighlights(){ return SHOW_STRUCTURE_HIGHLIGHTS.get(); }
-    public static int maxStructureResults()        { return MAX_STRUCTURE_RESULTS.get(); }
-    public static boolean collectDungeons()        { return COLLECT_DUNGEONS.get(); }
-    public static boolean collectBiomes()          { return COLLECT_BIOMES.get(); }
-    public static boolean collectDecorators()      { return COLLECT_DECORATORS.get(); }
-    public static boolean verboseLogging()         { return VERBOSE_LOGGING.get(); }
+    public static boolean showHud()                { return get().showHud; }
+    public static boolean hudOnRight()             { return get().hudOnRight; }
+    public static boolean showStructureHighlights(){ return get().showStructureHighlights; }
+    public static boolean autoStartCrack()         { return get().autoStartCrack; }
+    public static boolean collectDungeons()        { return get().collectDungeons; }
+    public static boolean collectBiomes()          { return get().collectBiomes; }
+    public static boolean collectDecorators()      { return get().collectDecorators; }
+    public static int maxStructureResults()        { return get().maxStructureResults; }
+    public static boolean verboseLogging()         { return get().verboseLogging; }
+
+    // -------------------------------------------------------------------------
+    // Registration
+    // -------------------------------------------------------------------------
 
     public static void register(ModContainer container) {
-        container.registerConfig(ModConfig.Type.CLIENT, SPEC);
-        SeedCracker.LOGGER.info("[SeedCracker] Config registered (config/seedcracker-client.toml).");
+        AutoConfig.register(SeedCrackerConfig.class, GsonConfigSerializer::new);
+        instance = AutoConfig.getConfigHolder(SeedCrackerConfig.class).getConfig();
+        SeedCracker.LOGGER.info("[SeedCracker] Config loaded.");
+    }
+
+    public static Screen buildScreen(Screen parent) {
+        return AutoConfig.getConfigScreen(SeedCrackerConfig.class, parent).get();
     }
 }

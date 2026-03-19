@@ -25,6 +25,17 @@ neoForge {
     }
 }
 
+repositories {
+    maven {
+        name = 'Cloth Config'
+        url = 'https://maven.shedaniel.me/'
+    }
+}
+
+dependencies {
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:15.0.140")
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }

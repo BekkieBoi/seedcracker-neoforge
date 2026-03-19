@@ -9,7 +9,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
@@ -28,8 +27,9 @@ public class SeedCracker {
         NeoForge.EVENT_BUS.register(new ClientEventHandler());
         NeoForge.EVENT_BUS.register(new SeedCrackerCommands());
 
-        // This one line makes the "Config" button appear in the Mods list screen
-        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        // Wire the Cloth Config screen to the NeoForge mods list Config button
+        container.registerExtensionPoint(IConfigScreenFactory.class,
+                (mc, screen) -> SeedCrackerConfig.buildScreen(screen));
 
         modBus.addListener(this::onClientSetup);
     }

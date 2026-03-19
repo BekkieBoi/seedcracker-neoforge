@@ -1,30 +1,37 @@
 {
   "seedcracker.title": "SeedCracker",
 
-  "seedcracker.config.show_hud": "Show HUD",
-  "seedcracker.config.show_hud.tooltip": "Display the status overlay in the corner of your screen.",
+  "text.autoconfig.seedcracker.title": "SeedCracker Settings",
 
-  "seedcracker.config.hud_on_right": "HUD on Right Side",
-  "seedcracker.config.hud_on_right.tooltip": "Move the HUD to the top-right corner instead of top-left.",
+  "text.autoconfig.seedcracker.category.display": "Display",
+  "text.autoconfig.seedcracker.category.cracking": "Cracking",
+  "text.autoconfig.seedcracker.category.structures": "Structures",
+  "text.autoconfig.seedcracker.category.debug": "Debug",
 
-  "seedcracker.config.show_structure_highlights": "Show Structure Highlights",
-  "seedcracker.config.show_structure_highlights.tooltip": "Draw coloured boxes at found structure positions in the world.",
+  "text.autoconfig.seedcracker.option.showHud": "Show HUD",
+  "text.autoconfig.seedcracker.option.showHud.@Tooltip": "Display the status overlay in the corner of your screen.",
 
-  "seedcracker.config.auto_start_crack": "Auto-Start Cracking",
-  "seedcracker.config.auto_start_crack.tooltip": "Automatically begin cracking when enough data is collected.",
+  "text.autoconfig.seedcracker.option.hudOnRight": "HUD on Right Side",
+  "text.autoconfig.seedcracker.option.hudOnRight.@Tooltip": "Move the HUD to the top-right corner instead of top-left.",
 
-  "seedcracker.config.collect_dungeons": "Collect Dungeon Data",
-  "seedcracker.config.collect_dungeons.tooltip": "Scan dungeon floors when a spawner block is loaded nearby.",
+  "text.autoconfig.seedcracker.option.showStructureHighlights": "Show Structure Highlights",
+  "text.autoconfig.seedcracker.option.showStructureHighlights.@Tooltip": "Draw coloured boxes at found structure positions in the world.",
 
-  "seedcracker.config.collect_biomes": "Collect Biome Data",
-  "seedcracker.config.collect_biomes.tooltip": "Sample biome data from incoming chunk packets.",
+  "text.autoconfig.seedcracker.option.autoStartCrack": "Auto-Start Cracking",
+  "text.autoconfig.seedcracker.option.autoStartCrack.@Tooltip": "Automatically begin cracking when enough data is collected.",
 
-  "seedcracker.config.collect_decorators": "Collect Decorator Data",
-  "seedcracker.config.collect_decorators.tooltip": "Scan nearby blocks for decorator positions (emerald ore, fungi, etc.).",
+  "text.autoconfig.seedcracker.option.collectDungeons": "Collect Dungeon Data",
+  "text.autoconfig.seedcracker.option.collectDungeons.@Tooltip": "Scan dungeon floors when a spawner block is loaded nearby.",
 
-  "seedcracker.config.max_structure_results": "Max Structures Per Type",
-  "seedcracker.config.max_structure_results.tooltip": "How many of each structure type to show after /sf find.",
+  "text.autoconfig.seedcracker.option.collectBiomes": "Collect Biome Data",
+  "text.autoconfig.seedcracker.option.collectBiomes.@Tooltip": "Sample biome data from incoming chunk packets.",
 
-  "seedcracker.config.verbose_logging": "Verbose Logging",
-  "seedcracker.config.verbose_logging.tooltip": "Print detailed cracking progress to the game log."
+  "text.autoconfig.seedcracker.option.collectDecorators": "Collect Decorator Data",
+  "text.autoconfig.seedcracker.option.collectDecorators.@Tooltip": "Scan nearby blocks for decorator positions.",
+
+  "text.autoconfig.seedcracker.option.maxStructureResults": "Max Structures Per Type",
+  "text.autoconfig.seedcracker.option.maxStructureResults.@Tooltip": "How many of each structure type to show after /sf find.",
+
+  "text.autoconfig.seedcracker.option.verboseLogging": "Verbose Logging",
+  "text.autoconfig.seedcracker.option.verboseLogging.@Tooltip": "Print detailed cracking progress to the game log."
 }
