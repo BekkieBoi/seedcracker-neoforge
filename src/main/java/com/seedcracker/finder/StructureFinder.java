@@ -182,8 +182,9 @@ public final class StructureFinder {
                 ChunkPos chunkPos = new ChunkPos(cx, cz);
 
                 StructureStart start = structureManager.getStartForStructure(
-                        chunkPos, structure,
-                        level.getChunk(cx, cz, net.minecraft.world.level.chunk.status.ChunkStatus.STRUCTURE_STARTS, false)
+        SectionPos.of(chunkPos, 0), structure,
+        level.getChunk(cx, cz, net.minecraft.world.level.chunk.status.ChunkStatus.STRUCTURE_STARTS, false)
+                );
                 );
 
                 if (start != null && start.isValid()) {
@@ -262,8 +263,9 @@ public final class StructureFinder {
                     ChunkPos chunkPos = new ChunkPos(cx, cz);
 
                     StructureStart start = structureManager.getStartForStructure(
-                            chunkPos, structure,
-                            level.getChunk(cx, cz, net.minecraft.world.level.chunk.status.ChunkStatus.STRUCTURE_STARTS, false)
+        SectionPos.of(chunkPos, 0), structure,
+        level.getChunk(cx, cz, net.minecraft.world.level.chunk.status.ChunkStatus.STRUCTURE_STARTS, false)
+                    );
                     );
 
                     if (start != null && start.isValid()) {
