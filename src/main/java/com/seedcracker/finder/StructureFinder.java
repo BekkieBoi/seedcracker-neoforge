@@ -1,5 +1,6 @@
 package com.seedcracker.finder;
 
+import net.minecraft.core.SectionPos;
 import com.seedcracker.core.SeedCracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
